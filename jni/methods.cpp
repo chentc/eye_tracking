@@ -65,21 +65,15 @@ void filter(const float *img, const int rows, const int cols, int * x_pos,int *y
             {
                 for (j=window_lower.c; j<MIN(window_upper.c,img_size.c-eye.w); j +=1)
                 {
-
-                    // printf("|%2.0f",img[i * cols + j]);
                     point_t offset = {i,j};
                     float response =  eye.outer.f*area(img,img_size,eye.outer.s,eye.outer.e,offset)
                                      +eye.inner.f*area(img,img_size,eye.inner.s,eye.inner.e,offset);
-                    // ikiuprintf("| %5.2f ",response);
                     if(response > best_response){
-                        // printf("!");
                         best_response = response;
                         best_pos = (point_t){i,j};
-                        // printf("%i %i", (int)best_pos.r,(int)best_pos.c);
                         best_h = eye.h;
                     }
                 }
-                // printf("\n");
             }
         }
 

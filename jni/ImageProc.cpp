@@ -528,7 +528,6 @@ JNIEXPORT void JNICALL Java_com_camera_simplewebcam_CameraPreview_processCamera(
 JNIEXPORT void JNICALL Java_com_camera_simplewebcam_CameraPreview_pupilDetection(JNIEnv* env, jobject thiz){
  	int width = IMG_WIDTH;
  	int height = IMG_HEIGHT;
-    jnilog("got here0!!!\n");
 	int canny_thresh = 159;
 	int ratio = 2;
 	int kernel_size = 3;

@@ -21,8 +21,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
-import com.camera.simplewebcam.Main.takePicture;
-
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
 	private static final boolean DEBUG = false;
@@ -31,7 +29,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     Thread mainLoop = null;
 	private Bitmap bmp=null;
 	private Handler handler;
-	private takePicture buttonObject;
 	private final VideoHandler videoHandler = new VideoHandler(this); 
 
 	private boolean cameraExists=false;
@@ -73,12 +70,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     static {
         System.loadLibrary("ImageProc");
     }
-    
-    void setButtonObject(takePicture buttonObject)
-    {
-    	this.buttonObject = buttonObject;
-    }
-    
+
     public CameraPreview(Context context, AttributeSet attributeset) {
 		super(context,attributeset);
 		this.context = context;
@@ -217,15 +209,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
          * add idle handler, this is where the video is processed
          */
         Looper.myQueue().addIdleHandler(new VideoHandler(this));
-
-        /*
-         * sent message with our handler to the image button
-         * so we can receive events like 'take a picture'
-         */
-		Message msg = buttonObject.getHandler().obtainMessage();
-		msg.arg1 = 1;
-		msg.obj = this.handler;
-		buttonObject.getHandler().sendMessage(msg);
 		
 		Looper.loop();
     }
